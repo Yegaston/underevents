@@ -37,7 +37,7 @@ export default function Navbar() {
         </IconButton>
         <Typography variant="h6">UnderEvents</Typography>
         <div className={classes.button}>
-          <Button raised color="inherit" component={Link} to="/login">
+          <Button raised='true' color="inherit" component={Link} to="/login">
             Login
           </Button>
         </div>

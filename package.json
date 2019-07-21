@@ -13,6 +13,7 @@
     "react-scripts": "3.0.1",
     "redux": "^4.0.4"
   },
+  "proxy": "https://us-central1-underevents-back.cloudfunctions.net/api",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
