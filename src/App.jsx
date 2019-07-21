@@ -3,7 +3,7 @@ import "./App.css";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
 import Navbar from "./components/Navbar";
-import login from "./pages/Login";
+import Login from "./pages/Login";
 import register from "./pages/Register";
 import home from "./pages/Home";
 
@@ -21,18 +21,19 @@ const theme = createMuiTheme({
       dark: "#a00037",
       contrastText: "#fff"
     }
-  }
+  },
+
 });
 
 function App() {
   return (
     <MuiThemeProvider theme={theme}>
       <div className="App">
-        <Navbar />
         <Router>
+          <Navbar />
           <Switch>
             <Route exact path="/" component={home} />
-            <Route exact path="/login" component={login} />
+            <Route exact path="/login" component={Login} />
             <Route exact path="/register" component={register} />
           </Switch>
         </Router>

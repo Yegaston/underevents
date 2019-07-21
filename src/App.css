@@ -1,5 +1,5 @@
-.nav-styles {
-  position: relative;
-  justify-content: right;
-  background: #ffffff;
+* {
+  margin: 0;
+  padding: 0;
+  background: '#243424';
 }
