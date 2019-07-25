@@ -11,9 +11,10 @@ const useStyles = makeStyles(theme => ({
     flex: 1
   },
   bgHead: {
-    background: "#d81b60",
     width: "100%",
-    height: "50vh"
+    height: "50vh",
+    background: "#d81b60",
+    maxWidth: "100vw"
   },
   titleText: {
     // margin: "auto"
