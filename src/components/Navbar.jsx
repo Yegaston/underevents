@@ -89,7 +89,7 @@ export default function Navbar() {
                   <div>
                     <OwnButton route="/login" where="Login" />
                   </div>
-                  <OwnButton route="/login" where="Register" />
+                  <OwnButton route="/register" where="Register" />
                 </Paper>
               </div>
             ) : (

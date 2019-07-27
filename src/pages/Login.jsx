@@ -1,15 +1,21 @@
 import React from "react";
-// import { makeStyles } from "@material-ui/core/styles";
+import Grid from "@material-ui/core/Grid";
+import { makeStyles } from "@material-ui/core/styles";
+import LoginForm from "../components/LoginForm";
 
-// const useStyles = makeStyles(theme => ({
-
-// }));
+const useStyles = makeStyles(theme => ({
+  root: {
+    margin: "5vh 2vh 5vh 2vh"
+  }
+}));
 
 export default function Login() {
-//   const classes = useStyles();
+  const classes = useStyles();
   return (
-    <div>
-      <h1>Login :D</h1>
+    <div className={classes.root}>
+      <Grid container direction="row" justify="center" alignItems="center">
+        <LoginForm />
+      </Grid>
     </div>
   );
 }

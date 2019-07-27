@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
 import { withStyles } from "@material-ui/styles";
+import { Link } from "react-router-dom";
 import Typography from "@material-ui/core/Typography";
 import Card from "@material-ui/core/Card";
 import Grid from "@material-ui/core/Grid";
@@ -9,28 +9,30 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 const useStyles = theme => ({
   //   ...theme,
-  textField: {},
   formStyles: {
     padding: 5
   },
   root: {
     justifyContent: "center"
   },
+  textField: {
+    // width: '100%'
+  },
   buttonStyle: {
     margin: "2 2 2 2"
   }
 });
-class RegisterForm extends Component {
+
+class LoginForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      fullname: "",
       email: "",
-      password: "",
-      confirmPassword: ""
+      password: ""
     };
     this.handleInput = this.handleInput.bind(this);
   }
+
   handleInput(e) {
     const { name, value } = e.target;
     this.setState({
@@ -48,16 +50,8 @@ class RegisterForm extends Component {
               Login
             </Typography>
             <TextField
-              label="Full Name"
-              name="fullname"
-              className={classes.textField}
-              value={this.state.fullname}
-              onChange={this.handleInput}
-              margin="normal"
-              fullWidth
-            />
-            <TextField
               label="Email"
+              type="email"
               name="email"
               className={classes.textField}
               value={this.state.email}
@@ -67,6 +61,7 @@ class RegisterForm extends Component {
             />
             <TextField
               label="Password"
+              type="password"
               name="password"
               className={classes.textField}
               value={this.state.password}
@@ -74,17 +69,14 @@ class RegisterForm extends Component {
               margin="normal"
               fullWidth
             />
-            <TextField
-              label="Confirm Password"
-              name="confirmPassword"
-              className={classes.textField}
-              value={this.state.confirmPassword}
-              onChange={this.handleInput}
-              margin="normal"
+            <Button
               fullWidth
-            />
-            <Button variant="contained" color="secondary" component="span">
-              Register
+              variant="contained"
+              color="secondary"
+              className={classes.buttonStyle}
+              component="span"
+            >
+              Login
             </Button>
             <br />
             <Typography variant="caption">
@@ -97,8 +89,8 @@ class RegisterForm extends Component {
   }
 }
 
-RegisterForm.propTypes = {
+LoginForm.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(useStyles)(RegisterForm);
+export default withStyles(useStyles)(LoginForm);
