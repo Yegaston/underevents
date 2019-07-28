@@ -20,6 +20,7 @@ const useStyles = theme => ({
     margin: "2 2 2 2"
   }
 });
+
 class RegisterForm extends Component {
   constructor(props) {
     super(props);
