@@ -2,6 +2,10 @@ import React from "react";
 import "./App.css";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
+
+import { Provider } from "react-redux";
+import store from "./redux/store";
+
 import Navbar from "./components/Navbar";
 import Login from "./pages/Login";
 import register from "./pages/Register";
@@ -27,16 +31,18 @@ const theme = createMuiTheme({
 function App() {
   return (
     <MuiThemeProvider theme={theme}>
-      <div className="App">
-        <Router>
-          <Navbar />
-          <Switch>
-            <Route exact path="/" component={home} />
-            <Route exact path="/login" component={Login} />
-            <Route exact path="/register" component={register} />
-          </Switch>
-        </Router>
-      </div>
+      <Provider store={store}>
+        <div className="App">
+          <Router>
+            <Navbar />
+            <Switch>
+              <Route exact path="/" component={home} />
+              <Route exact path="/login" component={Login} />
+              <Route exact path="/register" component={register} />
+            </Switch>
+          </Router>
+        </div>
+      </Provider>
     </MuiThemeProvider>
   );
 }
