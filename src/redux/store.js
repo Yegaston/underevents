@@ -1,10 +1,10 @@
 import { createStore, compose, applyMiddleware, combineReducers } from "redux";
-
+import userReducer from "./reducers/userReducer";
 import thunk from "redux-thunk";
 
 const initialState = {};
 
-const reducers = combineReducers({});
+const reducers = combineReducers({ user: userReducer });
 
 const middleware = [thunk];
 

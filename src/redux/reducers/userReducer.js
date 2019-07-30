@@ -1,14 +1,19 @@
-import { SET_USER } from "../types";
+import { SET_USER, SET_ERRORS } from "../types";
 
 const initialState = {
   email: "",
-  user: "",
-  username: ""
+  username: "",
+  errors: ""
 };
 
 export default function(state = initialState, action) {
   switch (action.type) {
     case SET_USER:
+      return {
+        ...state,
+        ...action.payload
+      };
+    case SET_ERRORS:
       return {
         ...state,
         ...action.payload

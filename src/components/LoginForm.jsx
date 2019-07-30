@@ -7,10 +7,13 @@ import Card from "@material-ui/core/Card";
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
+import { connect } from "react-redux";
+import { loginUser } from "../redux/actions/actionsUser";
 const useStyles = theme => ({
   //   ...theme,
   formStyles: {
-    padding: 5
+    padding: 5,
+    width: "80vw"
   },
   root: {
     justifyContent: "center"
@@ -31,6 +34,7 @@ class LoginForm extends Component {
       password: ""
     };
     this.handleInput = this.handleInput.bind(this);
+    this.LoginAction = this.LoginAction.bind(this);
   }
 
   handleInput(e) {
@@ -40,15 +44,43 @@ class LoginForm extends Component {
     });
   }
 
+  async LoginAction(e) {
+    const { email, password } = this.state;
+    const userToLogin = {
+      email,
+      password
+    };
+    await this.props.loginUser(userToLogin, this.props.history);
+    const { errors } = this.props.user;
+    console.log(errors);
+  }
+
   render() {
     const { classes } = this.props;
+    const { errors } = this.props.user;
     return (
       <div>
         <Card className={classes.formStyles}>
-          <Grid container direction="row" justify="center" alignItems="center">
+          <Grid
+            container
+            direction="column"
+            justify="center"
+            alignItems="center"
+          >
             <Typography variant="h5" component="h2" gutterBottom align="center">
               Login
             </Typography>
+            <br />
+            {errors ? (
+              <Typography
+                variant="subtitle1"
+                component="h4"
+                gutterBottom
+                align="center"
+              >
+                {errors}
+              </Typography>
+            ) : null}
             <TextField
               label="Email"
               type="email"
@@ -75,6 +107,7 @@ class LoginForm extends Component {
               color="secondary"
               className={classes.buttonStyle}
               component="span"
+              onClick={this.LoginAction}
             >
               Login
             </Button>
@@ -90,7 +123,19 @@ class LoginForm extends Component {
 }
 
 LoginForm.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  loginUser: PropTypes.func.isRequired,
+  user: PropTypes.object.isRequired
 };
 
-export default withStyles(useStyles)(LoginForm);
+const mapActionsToProps = {
+  loginUser
+};
+const mapStateToProps = state => ({
+  user: state.user
+});
+
+export default connect(
+  mapStateToProps,
+  mapActionsToProps
+)(withStyles(useStyles)(LoginForm));
