@@ -9,12 +9,12 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function Register() {
+export default function Register(props) {
   const classes = useStyles();
   return (
     <div className={classes.root}>
       <Grid container direction="row" justify="center" alignItems="center">
-        <LoginForm />
+        <LoginForm history={props.history} />
       </Grid>
     </div>
   );

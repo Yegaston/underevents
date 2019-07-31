@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import { registerUser } from "../redux/actions/actionsUser";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { withStyles } from "@material-ui/styles";
@@ -30,15 +32,31 @@ class RegisterForm extends Component {
       fullname: "",
       email: "",
       password: "",
-      confirmPassword: ""
+      confirmPassword: "",
+      username: ""
     };
     this.handleInput = this.handleInput.bind(this);
+    this.handlerSubmit = this.handlerSubmit.bind(this);
   }
   handleInput(e) {
     const { name, value } = e.target;
     this.setState({
       [name]: value
     });
+  }
+
+  handlerSubmit(e) {
+    e.preventDefault();
+    console.log("xd");
+    const { fullname, email, password, confirmPassword, username } = this.state;
+    const userData = {
+      name: fullname,
+      email,
+      password,
+      confirmPassword,
+      username
+    };
+    this.props.registerUser(userData, this.props.history);
   }
 
   render() {
@@ -55,45 +73,63 @@ class RegisterForm extends Component {
             <Typography variant="h5" component="h2" gutterBottom align="center">
               Register
             </Typography>
-            <TextField
-              label="Full Name"
-              name="fullname"
-              className={classes.textField}
-              value={this.state.fullname}
-              onChange={this.handleInput}
-              margin="normal"
-              fullWidth
-            />
-            <TextField
-              label="Email"
-              name="email"
-              className={classes.textField}
-              value={this.state.email}
-              onChange={this.handleInput}
-              margin="normal"
-              fullWidth
-            />
-            <TextField
-              label="Password"
-              name="password"
-              className={classes.textField}
-              value={this.state.password}
-              onChange={this.handleInput}
-              margin="normal"
-              fullWidth
-            />
-            <TextField
-              label="Confirm Password"
-              name="confirmPassword"
-              className={classes.textField}
-              value={this.state.confirmPassword}
-              onChange={this.handleInput}
-              margin="normal"
-              fullWidth
-            />
-            <Button variant="contained" color="secondary" component="span">
-              Register
-            </Button>
+            <form>
+              <TextField
+                label="Full Name"
+                name="fullname"
+                className={classes.textField}
+                value={this.state.fullname}
+                onChange={this.handleInput}
+                margin="normal"
+                fullWidth
+              />{" "}
+              <TextField
+                label="Username"
+                name="username"
+                className={classes.textField}
+                value={this.state.username}
+                onChange={this.handleInput}
+                margin="normal"
+                fullWidth
+              />
+              <TextField
+                label="Email"
+                name="email"
+                className={classes.textField}
+                value={this.state.email}
+                onChange={this.handleInput}
+                margin="normal"
+                fullWidth
+              />
+              <TextField
+                label="Password"
+                name="password"
+                className={classes.textField}
+                value={this.state.password}
+                onChange={this.handleInput}
+                margin="normal"
+                fullWidth
+              />
+              <TextField
+                label="Confirm Password"
+                name="confirmPassword"
+                className={classes.textField}
+                value={this.state.confirmPassword}
+                onChange={this.handleInput}
+                margin="normal"
+                fullWidth
+              />
+              <Button
+                variant="contained"
+                color="secondary"
+                component="span"
+                type="submit"
+                onClick={this.handlerSubmit}
+                fullWidth
+              >
+                Register
+              </Button>
+            </form>
             <br />
             <Typography variant="caption">
               You are not register? <Link to="/register">Register here.</Link>{" "}
@@ -106,7 +142,20 @@ class RegisterForm extends Component {
 }
 
 RegisterForm.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired,
+  registerUser: PropTypes.func.isRequired
 };
 
-export default withStyles(useStyles)(RegisterForm);
+const mapActionsToProps = {
+  registerUser
+};
+
+const mapStateToProps = state => ({
+  user: state.user
+});
+
+export default connect(
+  mapStateToProps,
+  mapActionsToProps
+)(withStyles(useStyles)(RegisterForm));
