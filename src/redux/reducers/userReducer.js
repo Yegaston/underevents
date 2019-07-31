@@ -1,4 +1,4 @@
-import { SET_USER, SET_ERRORS } from "../types";
+import { SET_USER, SET_ERRORS, CLEAR_ERRORS } from "../types";
 
 const initialState = {
   email: "",
@@ -17,6 +17,11 @@ export default function(state = initialState, action) {
       return {
         ...state,
         ...action.payload
+      };
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        errors: null
       };
     default:
       return { ...state };

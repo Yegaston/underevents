@@ -45,11 +45,13 @@ class LoginForm extends Component {
   }
 
   async LoginAction(e) {
+    e.preventDefault();
     const { email, password } = this.state;
     const userToLogin = {
       email,
       password
     };
+    console.log(this.props.history);
     await this.props.loginUser(userToLogin, this.props.history);
     const { errors } = this.props.user;
     console.log(errors);
@@ -81,40 +83,43 @@ class LoginForm extends Component {
                 {errors}
               </Typography>
             ) : null}
-            <TextField
-              label="Email"
-              type="email"
-              name="email"
-              className={classes.textField}
-              value={this.state.email}
-              onChange={this.handleInput}
-              margin="normal"
-              fullWidth
-            />
-            <TextField
-              label="Password"
-              type="password"
-              name="password"
-              className={classes.textField}
-              value={this.state.password}
-              onChange={this.handleInput}
-              margin="normal"
-              fullWidth
-            />
-            <Button
-              fullWidth
-              variant="contained"
-              color="secondary"
-              className={classes.buttonStyle}
-              component="span"
-              onClick={this.LoginAction}
-            >
-              Login
-            </Button>
-            <br />
-            <Typography variant="caption">
-              You are not register? <Link to="/register">Register here.</Link>{" "}
-            </Typography>
+            <form noValidate onSubmit={this.LoginAction}>
+              <TextField
+                label="Email"
+                type="email"
+                name="email"
+                className={classes.textField}
+                value={this.state.email}
+                onChange={this.handleInput}
+                margin="normal"
+                fullWidth
+              />
+              <TextField
+                label="Password"
+                type="password"
+                name="password"
+                className={classes.textField}
+                value={this.state.password}
+                onChange={this.handleInput}
+                margin="normal"
+                fullWidth
+              />
+              <Button
+                fullWidth
+                type="submit"
+                variant="contained"
+                color="secondary"
+                onClick={this.LoginAction}
+                className={classes.buttonStyle}
+                component="span"
+              >
+                Login
+              </Button>
+              <br />
+              <Typography variant="caption">
+                You are not register? <Link to="/register">Register here.</Link>
+              </Typography>
+            </form>
           </Grid>
         </Card>
       </div>

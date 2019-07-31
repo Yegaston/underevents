@@ -1,5 +1,5 @@
 import Axios from "axios";
-import { SET_USER, SET_ERRORS } from "../types";
+import { SET_USER, SET_ERRORS, CLEAR_ERRORS } from "../types";
 
 export const loginUser = (userData, history) => async dispatch => {
   try {
@@ -7,12 +7,16 @@ export const loginUser = (userData, history) => async dispatch => {
     const token = res.data.idToken;
     setAuthorizationHeader(token);
     dispatch(getUserData());
+    dispatch({ type: CLEAR_ERRORS });
     history.push("/");
   } catch (err) {
+    console.log(err);
     if (err.response.status === 400 || err.response.status === 500) {
       dispatch({
         type: SET_ERRORS,
-        payload: { errors: "Something go wrong, check the email and password" }
+        payload: {
+          errors: "Something go wrong, check the email and password"
+        }
       });
     }
   }

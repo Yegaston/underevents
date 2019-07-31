@@ -7,11 +7,13 @@ import Card from "@material-ui/core/Card";
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
+
 const useStyles = theme => ({
   //   ...theme,
   textField: {},
   formStyles: {
-    padding: 5
+    padding: 5,
+    width: "80vw"
   },
   root: {
     justifyContent: "center"
@@ -44,9 +46,14 @@ class RegisterForm extends Component {
     return (
       <div>
         <Card className={classes.formStyles}>
-          <Grid container direction="row" justify="center" alignItems="center">
+          <Grid
+            container
+            direction="column"
+            justify="center"
+            alignItems="center"
+          >
             <Typography variant="h5" component="h2" gutterBottom align="center">
-              Login
+              Register
             </Typography>
             <TextField
               label="Full Name"
