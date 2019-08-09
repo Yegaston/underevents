@@ -1,11 +1,5 @@
 import Axios from "axios";
-import {
-  SET_USER,
-  SET_ERRORS,
-  CLEAR_ERRORS,
-  CLEAR_USER_STATE,
-  SET_AUTH
-} from "../types";
+import { SET_USER, SET_ERRORS, CLEAR_ERRORS, CLEAR_USER_STATE } from "../types";
 import jwtDecode from "jwt-decode";
 
 export const loginUser = (userData, history) => async dispatch => {
