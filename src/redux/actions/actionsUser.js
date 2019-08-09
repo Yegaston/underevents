@@ -1,5 +1,12 @@
 import Axios from "axios";
-import { SET_USER, SET_ERRORS, CLEAR_ERRORS } from "../types";
+import {
+  SET_USER,
+  SET_ERRORS,
+  CLEAR_ERRORS,
+  CLEAR_USER_STATE,
+  SET_AUTH
+} from "../types";
+import jwtDecode from "jwt-decode";
 
 export const loginUser = (userData, history) => async dispatch => {
   try {
@@ -25,7 +32,7 @@ export const loginUser = (userData, history) => async dispatch => {
 export const registerUser = (userData, history) => async dispatch => {
   try {
     const res = await Axios.post("/user/register", userData);
-    console.log(res)
+    console.log(res);
     const token = res.data.token;
     setAuthorizationHeader(token);
     dispatch(getUserData());
@@ -44,17 +51,51 @@ export const registerUser = (userData, history) => async dispatch => {
   }
 };
 
-export const getUserData = () => async dispatch => {
+export const decodedTokenAndSetState = () => async dispatch => {
+  const token = localStorage.getItem("FBIdToken");
+  const FBIdToken = `Bearer ${token}`;
+  Axios.defaults.headers.common["Authorization"] = FBIdToken;
+
+  const decodeToken = jwtDecode(token);
+
+  const exp = decodeToken.exp;
   const res = await Axios.get("/user");
-  console.log(res);
+  const send = {
+    credentials: {
+      ...res.data
+    },
+    exp
+  };
+
   dispatch({
     type: SET_USER,
-    payload: res.data
+    payload: send
   });
 };
 
+export const LogOut = () => async dispatch => {
+  dispatch({
+    type: CLEAR_USER_STATE
+  });
+  localStorage.removeItem("FBIdToken");
+};
+
 const setAuthorizationHeader = token => {
-  localStorage.setItem("FBIdToken", `Bearer ${token}`);
+  localStorage.setItem("FBIdToken", token);
+  console.log(jwtDecode(token));
   const FBIdToken = `Bearer ${token}`;
   Axios.defaults.headers.common["Authorization"] = FBIdToken;
+};
+
+export const getUserData = () => async dispatch => {
+  const res = await Axios.get("/user");
+  const credentials = {
+    credentials: {
+      ...res.data
+    }
+  };
+  dispatch({
+    type: SET_USER,
+    payload: credentials
+  });
 };

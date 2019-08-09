@@ -1,8 +1,14 @@
-import { SET_USER, SET_ERRORS, CLEAR_ERRORS } from "../types";
+import {
+  SET_USER,
+  SET_ERRORS,
+  CLEAR_ERRORS,
+  CLEAR_USER_STATE,
+  SET_AUTH
+} from "../types";
 
 const initialState = {
-  email: "",
-  username: "",
+  auth: false,
+  credentials: {},
   errors: ""
 };
 
@@ -10,8 +16,8 @@ export default function(state = initialState, action) {
   switch (action.type) {
     case SET_USER:
       return {
-        ...state,
-        ...action.payload
+        ...action.payload,
+        auth: true
       };
     case SET_ERRORS:
       return {
@@ -22,6 +28,15 @@ export default function(state = initialState, action) {
       return {
         ...state,
         errors: null
+      };
+    case CLEAR_USER_STATE:
+      return {
+        ...initialState
+      };
+    case SET_AUTH:
+      return {
+        ...state,
+        auth: true
       };
     default:
       return { ...state };

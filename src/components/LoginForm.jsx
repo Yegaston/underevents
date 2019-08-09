@@ -57,6 +57,10 @@ class LoginForm extends Component {
     console.log(errors);
   }
 
+  componentDidMount() {
+    console.log(this.props.user.auth);
+  }
+
   render() {
     const { classes } = this.props;
     const { errors } = this.props.user;

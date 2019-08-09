@@ -26,7 +26,8 @@ const theme = createMuiTheme({
       dark: "#a00037",
       contrastText: "#fff"
     }
-  }
+  },
+  spreadtThis: {}
 });
 
 function App() {
